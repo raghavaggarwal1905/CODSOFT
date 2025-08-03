@@ -2,9 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 import string
 import random
-import pyperclip  # To copy password to clipboard
+import pyperclip  
 
-# Function to generate password
 def generate_password():
     try:
         length = int(length_entry.get())
@@ -32,28 +31,23 @@ def generate_password():
     password = ''.join(random.choice(char_pool) for _ in range(length))
     password_var.set(password)
 
-# Copy password to clipboard
 def copy_to_clipboard():
     password = password_var.get()
     if password:
         pyperclip.copy(password)
         messagebox.showinfo("Copied", "Password copied to clipboard!")
 
-# Create GUI window
 root = tk.Tk()
 root.title("🔐 Advanced Password Generator")
 root.geometry("400x350")
 root.resizable(False, False)
 
-# Title Label
 tk.Label(root, text="Advanced Password Generator", font=("Arial", 16, "bold")).pack(pady=10)
 
-# Length Entry
 tk.Label(root, text="Password Length:", font=("Arial", 12)).pack()
 length_entry = tk.Entry(root, font=("Arial", 12), width=10, justify='center')
 length_entry.pack(pady=5)
 
-# Character type options
 options_frame = tk.Frame(root)
 options_frame.pack(pady=5)
 
@@ -67,16 +61,12 @@ tk.Checkbutton(options_frame, text="Lowercase", variable=lowercase_var, font=("A
 tk.Checkbutton(options_frame, text="Numbers", variable=numbers_var, font=("Arial", 10)).grid(row=1, column=0, sticky='w', padx=10)
 tk.Checkbutton(options_frame, text="Special Characters", variable=special_var, font=("Arial", 10)).grid(row=1, column=1, sticky='w', padx=10)
 
-# Generate button
 tk.Button(root, text="Generate Password", font=("Arial", 12, "bold"), command=generate_password, bg="#4CAF50", fg="white").pack(pady=10)
 
-# Password display
 password_var = tk.StringVar()
 password_entry = tk.Entry(root, textvariable=password_var, font=("Arial", 12), justify='center', width=35, state='readonly')
 password_entry.pack(pady=5)
 
-# Copy button
 tk.Button(root, text="Copy to Clipboard", command=copy_to_clipboard, font=("Arial", 10), bg="#2196F3", fg="white").pack(pady=5)
 
-# Run the app
 root.mainloop()
